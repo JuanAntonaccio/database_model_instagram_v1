@@ -52,7 +52,7 @@ class Comment(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     comment_text = Column(String(250), nullable=False)
-    author_id = Column(Integer, ForeingKey('user.id'))
+    author_id = Column(Integer, ForeignKey('user.id'))
     post_id = Column(Integer, ForeignKey('post.id'))    
 ## Draw from SQLAlchemy base
 try:
