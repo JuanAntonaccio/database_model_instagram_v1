@@ -30,6 +30,30 @@ class Follower(Base):
     def to_dict(self):
         return {}
 
+class Post(Base):
+    __tablename__ = 'post'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    
+class Media(Base):
+    __tablename__ = 'media'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    type = Column(String(50), nullable=False)
+    url = Column(String(150), nullable=False)
+    post_id = Column(Integer, ForeignKey('post.id'))
+
+class Comment(Base):
+    __tablename__ = 'comment'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    comment_text = Column(String(250), nullable=False)
+    author_id = Column(Integer, ForeingKey('user.id'))
+    post_id = Column(Integer, ForeignKey('post.id'))    
 ## Draw from SQLAlchemy base
 try:
     result = render_er(Base, 'diagram.png')
