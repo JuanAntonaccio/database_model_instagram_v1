@@ -1,10 +1,12 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String
+import enum
+from sqlalchemy import Column, ForeignKey, Integer, String, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from eralchemy import render_er
+
 
 Base = declarative_base()
 
@@ -36,13 +38,18 @@ class Post(Base):
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
+
+class MiEnumerado(enum.Enum):
+    uno=1
+    dos=2
+    tres=3  
     
 class Media(Base):
     __tablename__ = 'media'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    type = Column(String(50), nullable=False)
+    type = Column(Enum(MiEnumerado), nullable=False)
     url = Column(String(150), nullable=False)
     post_id = Column(Integer, ForeignKey('post.id'))
 
